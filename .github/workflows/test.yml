@@ -9,8 +9,8 @@ on:
       - reopened
       - edited
   pull_request_review:
-    types:
-      - submitted # for review
+    types: [edited, dismissed]
+
   issue_comment: # github.event_name == issue_comment
         
 jobs:
@@ -21,6 +21,24 @@ jobs:
  #     uses: actions/checkout@v1
     - name: Event name
       run: echo "Event name ${{ github.event_name }}"
-    - name: Event type
+    - name: if Pull_request
       if: ${{ github.event_name =='pull_request' }}
-      run: echo "Event action ${{ github.event.action }}."  
+      run: echo "Event action ${{ github.event.action }}."
+    - name: if Issue Comment   
+      if: ${{ github.event_name =='issue_comment' }}
+      run: echo "Event action ${{ github.event.action }}."
+    - name: if Push   
+      if: ${{ github.event_name =='push' }}
+      run: echo "I am push ."
+    - name: if Review   
+      if: ${{ github.event_name =='pull_request_review' }}
+      run: echo "Event action ${{ github.event.action }}."
+      
+
+#    - name: Run Discord Webhook
+#     # if: ${{ github.event.issue.name =='pull_request' }}  #github.event_name == 'pull_request' || 
+#      uses: Mist3r-Robot/classic-discord-webhook@master
+#      with:
+#        id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+#        token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+ 
