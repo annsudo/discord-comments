@@ -1,0 +1,26 @@
+name: Discord message
+on:
+  push: # github.event_name == push
+  pull_request: # github.event_name == pull_request
+    types:
+      - merged
+      - open # needed?
+      - closed
+      - reopened
+      - edited
+  pull_request_review:
+    types:
+      - submitted # for review
+  issue_comment: # github.event_name == issue_comment
+        
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+#    - name: Checkout repository
+ #     uses: actions/checkout@v1
+    - name: Event name
+      run: echo "Event name ${{ github.event_name }}"
+    - name: Event type
+      if: ${{ github.event_name =='pull_request' }}
+      run: echo "Event action ${{ github.event.action }}."  
