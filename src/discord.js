@@ -1,8 +1,7 @@
 const discord= require('discord.js')
 const MAX_SIZE = 30; //TODO: check
 
-module.exports.send =(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link) 
-=> new Promise ((success,fail) => {
+module.exports.send =(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((success,fail) => {
     var discordChannel
     console.log ("Constructing message ..")
    
