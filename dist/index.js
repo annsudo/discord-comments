@@ -8957,7 +8957,7 @@ run();
 /***/ 5004:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const discord= __nccwpck_require__(2175)
+const discord= __nccwpck_require__(6517)
 const MAX_SIZE = 30; //TODO: check
 
 module.exports.send =(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((success,fail) => {
@@ -9010,10 +9010,10 @@ return linkDiscord
 
 /***/ }),
 
-/***/ 2175:
+/***/ 6517:
 /***/ ((module) => {
 
-module.exports = eval("require")("discord.js");
+module.exports = eval("require")("discord");
 
 
 /***/ }),
