@@ -17,8 +17,12 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-#    - name: Checkout repository
- #     uses: actions/checkout@v1
+    - name: Checkout repository
+      uses: actions/checkout@v1
+    - name: Publish comment
+      uses: ./ # Uses an action in the root directory
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Event name
       run: echo "Event name ${{ github.event_name }}"
     - name: if Pull_request
