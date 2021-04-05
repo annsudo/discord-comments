@@ -10,13 +10,22 @@ try{
 
   console.log(`Received payload ${JSON.stringify(payload, null, 2)}`)
   
+  /**
+   on merge: commits (github.context.payload.commits)
+   on pull- comment: pull_request
+   on issue comment: comment
+   **/ 
+  
   const repository= payload.repository.full_name // annsudo/discord-comments
   
-  //const comment =payload.comment;
-  //console.log("comment " + comment);  
+  const comment =payload.comment;
+  console.log(`"Comment reciived "${JSON.stringify(comment)}`);
+ 
+  const pull_request =payload.pull_request;
+  console.log(`"Pull request ?comment reciived "${JSON.stringify(pull_request)}`); 
 
   const commits = payload.commits // for commits
-  console.log(`"Commit reciived "${commits}`);
+  console.log(`"Commit reciived "${JSON.stringify(commits)}`);
   
   
 //   const size =  commits.lengts
