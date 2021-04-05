@@ -1,0 +1,26 @@
+name: 'Github comments to discord'
+description: 'send github comments to discord'
+author: 'annsudo'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+  ACTOR:
+    description: 'Issuer'
+    required: false
+    default: ${{ github.actor}}
+    inputs:
+  # TENOR_TOKEN:
+  #   description: 'Tenor token for Gif'
+  #   required: true 
+  DISCORD_WEBHOOK_ID:
+    description: 'Discord id token'
+    required: true  
+  DISCORD_WEBHOOK_TOKEN:
+    description: 'Discord webhook token'
+    required: true    
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
