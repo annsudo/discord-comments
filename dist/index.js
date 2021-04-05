@@ -40352,8 +40352,6 @@ function socketOnError() {
 const core = __nccwpck_require__ (2186)
 const github= __nccwpck_require__(5438)
 const discord= __nccwpck_require__ (5004)
-const fetch= __nccwpck_require__(467)
-
 
 async function run(){
 try{
