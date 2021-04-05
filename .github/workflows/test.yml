@@ -1,16 +1,5 @@
 name: Discord message
 on:
- # push: # github.event_name == push
-  # pull_request: # github.event_name == pull_request
-  #   types:
-  #     - merged
-  #     - open # needed?
-  #     - closed
-  #     - reopened
-  #     - edited
- # pull_request_review:
- #   types: [edited, dismissed]
-
   issue_comment: # github.event_name == issue_comment
         
 jobs:
@@ -19,25 +8,17 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v1
+    - name: Event name
+      run: echo "Event name ${{ github.event_name }}"
+    - name: if Issue Comment   
+      if: ${{ github.event_name =='issue_comment' }}
+      run: echo "Event action ${{ github.event.action }}."
     - name: Publish comment
       uses: ./ # Uses an action in the root directory
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DISCORD_WEBHOOK_ID: ${{ secrets.DISCORD_WEBHOOK_ID }}
         DISCORD_WEBHOOK_TOKEN: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-    - name: Event name
-      run: echo "Event name ${{ github.event_name }}"
-    # - name: if Pull_request
-    #   if: ${{ github.event_name =='pull_request' }}
-    #   run: echo "Event action ${{ github.event.action }}."
-    - name: if Issue Comment   
-      if: ${{ github.event_name =='issue_comment' }}
-      run: echo "Event action ${{ github.event.action }}."
-    # - name: if Push   
-    #   if: ${{ github.event_name =='push' }}
-    #   run: echo "I am push ."
-    # - name: if Review   
-    #   if: ${{ github.event_name =='pull_request_review' }}
-    #   run: echo "Event action ${{ github.event.action }}."
+
       
  
