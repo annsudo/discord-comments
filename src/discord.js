@@ -1,5 +1,5 @@
 const discord= require('discord.js');
-const MAX_SIZE = 30; //TODO: check
+const MAX_SIZE = 30; //Size for the max message length shown in a Discord msg
 
 module.exports.send =(DISCORD_ID, DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((success, fail) => {
     var botChannel
@@ -14,17 +14,16 @@ module.exports.send =(DISCORD_ID, DISCORD_TOKEN, user, body, issueTopic, link)=>
         return
     }
 
-// sending messahe
-
-    botChannel.send(createMsg(user, body, issueTopic, link))
+/** sending message */
+ botChannel.send(createMsg(user, body, issueTopic, link))
   .then(()=>{
         console.log ("Message is send!")
         success()
     }, fail);
 
-// stoping server
+/** Stoping server */
  botChannel.destroy();   
-  
+ 
 })
 
 
