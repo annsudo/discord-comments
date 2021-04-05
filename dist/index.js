@@ -8891,7 +8891,14 @@ try{
   
   const comment =payload.comment;
   console.log(`"Comment reciived "${JSON.stringify(comment)}`);
- 
+  const body= comment.body;
+  const user= comment.user.login;
+  const issueTopic= payload.issue.title;
+  const link= payload.issue.html_url;
+  console.log(`"Body1 "${JSON.stringify(body)}`);
+  console.log(`"Body2 "${body}`);
+  console.log("Body3 "+body);
+  
   const pull_request =payload.pull_request;
   console.log(`"Pull request ?comment reciived "${JSON.stringify(pull_request)}`); 
 
