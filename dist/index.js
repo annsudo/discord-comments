@@ -8871,7 +8871,7 @@ function wrappy (fn, cb) {
 
 const core = __nccwpck_require__ (2186)
 const github= __nccwpck_require__(5438)
-const discord= reqiore ('.../src/discord.js')
+const discord= __nccwpck_require__ (1923)
 const fetch= __nccwpck_require__(467)
 
 
@@ -8951,6 +8951,14 @@ discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> c
 };
 
 run();
+
+/***/ }),
+
+/***/ 1923:
+/***/ ((module) => {
+
+module.exports = eval("require")(".../src/discord.js");
+
 
 /***/ }),
 

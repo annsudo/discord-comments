@@ -1,6 +1,6 @@
 const core = require ('@actions/core')
 const github= require('@actions/github')
-const discord= reqiore ('.../src/discord.js')
+const discord= require ('.../src/discord.js')
 const fetch= require('node-fetch')
 
 
