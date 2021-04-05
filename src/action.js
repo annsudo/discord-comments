@@ -18,9 +18,10 @@ async function run(){
    
    **/ 
   
-
+//  NEED THIS!!!
 /** for comments on issue */
-  const comment =payload.comment;
+
+const comment =payload.comment;
   console.log(`"Comment reciived "${JSON.stringify(comment)}`);
   const body= comment.body;
   const user= comment.user.login;
@@ -35,7 +36,7 @@ async function run(){
   const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID');
   const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN');
 
- 
+
 discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> core.setFailed(e.message));
 
 
