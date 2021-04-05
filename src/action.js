@@ -3,12 +3,11 @@ const github= require('@actions/github')
 const discord= require ('./discord.js')
 
 async function run(){
-try{
 
-  const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
-  const payload= github.context.payload   //action,comment,issue, pull_request
+  //const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
+  const payload= github.context.payload;   //action,comment,issue, pull_request
     
-  console.log(`Received payload ${JSON.stringify(payload, null, 2)}`)
+ // console.log(`Received payload ${JSON.stringify(payload, null, 2)}`)
   
   /**
    on merge: commits (github.context.payload.commits)
@@ -33,10 +32,10 @@ try{
   console.log("issueTopic "+issueTopic);
   console.log("link "+link);
 
-  const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID')
-  const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN')
+  const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID');
+  const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN');
 
-    //analysis
+ 
 discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> core.setFailed(e.message));
 
 
@@ -56,8 +55,8 @@ discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> c
  
 
 
-  const client= github.getOctokit(GITHUB_TOKEN);
-  let { owner, repo } = github.context.repo;
+  //const client= github.getOctokit(GITHUB_TOKEN);
+  //let { owner, repo } = github.context.repo;
 
 
 //   await client.issues.createComment({
@@ -68,13 +67,11 @@ discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> c
 //    body: `${changeMsg}\n\n<img src="${gifUrl}" alt = "almost there" />`
 // });
 
-
-
-
-} catch (e){
-    core.error(e);
-    core.setFailed(e.message);
 }
-};
 
-run();
+try{ 
+    run()
+} catch (err){
+    core.setFailed(e.message)
+}
+

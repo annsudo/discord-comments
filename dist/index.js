@@ -40354,12 +40354,11 @@ const github= __nccwpck_require__(5438)
 const discord= __nccwpck_require__ (5004)
 
 async function run(){
-try{
 
-  const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
-  const payload= github.context.payload   //action,comment,issue, pull_request
+  //const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
+  const payload= github.context.payload;   //action,comment,issue, pull_request
     
-  console.log(`Received payload ${JSON.stringify(payload, null, 2)}`)
+ // console.log(`Received payload ${JSON.stringify(payload, null, 2)}`)
   
   /**
    on merge: commits (github.context.payload.commits)
@@ -40384,10 +40383,10 @@ try{
   console.log("issueTopic "+issueTopic);
   console.log("link "+link);
 
-  const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID')
-  const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN')
+  const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID');
+  const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN');
 
-    //analysis
+ 
 discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> core.setFailed(e.message));
 
 
@@ -40407,8 +40406,8 @@ discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> c
  
 
 
-  const client= github.getOctokit(GITHUB_TOKEN);
-  let { owner, repo } = github.context.repo;
+  //const client= github.getOctokit(GITHUB_TOKEN);
+  //let { owner, repo } = github.context.repo;
 
 
 //   await client.issues.createComment({
@@ -40419,16 +40418,15 @@ discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> c
 //    body: `${changeMsg}\n\n<img src="${gifUrl}" alt = "almost there" />`
 // });
 
-
-
-
-} catch (e){
-    core.error(e);
-    core.setFailed(e.message);
 }
-};
 
-run();
+try{ 
+    run()
+} catch (err){
+    core.setFailed(e.message)
+}
+
+
 
 /***/ }),
 
@@ -40438,23 +40436,23 @@ run();
 const discord= __nccwpck_require__(5973)
 const MAX_SIZE = 30; //TODO: check
 
-module.exports.send =(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((success,fail) => {
-    var discordChannel
+module.exports.send =(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((resolve, reject) => {
+    var client
     console.log ("Constructing message ..")
    
 //connecting to discord channel by using id and token
     try{
-        discordChannel= new discord.WebhookClient(DISCORD_ID,DISCORD_TOKEN)
+        client= new discord.WebhookClient(DISCORD_ID,DISCORD_TOKEN)
     } catch(e){
-        fail(error.message)
+        reject (error.message)
         return
     }
 
 // sending messahe
-    discordChannel.send(createMsg(user, body, issueTopic, link)).then(()=>{
+    client.send(createMsg(user, body, issueTopic, link)).then(()=>{
         console.log ("Message is send!")
-        success()
-    }, fail)
+        resolve()
+    }, reject)
 })
 
 
@@ -40468,6 +40466,7 @@ function createMsg(user, body, issueTopic, link){
  .setDescription(getBody(user,body))
 .setFooter("Read whole discussion on "+ shortLink(link))
 
+return message
 }
 
 
