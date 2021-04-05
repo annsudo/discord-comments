@@ -8869,19 +8869,39 @@ function wrappy (fn, cb) {
 /***/ 3348:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const core = __nccwpck_require__ (2186);
-const github= __nccwpck_require__(5438);
-const fetch= __nccwpck_require__(467);
+const core = __nccwpck_require__ (2186)
+const github= __nccwpck_require__(5438)
+const fetch= __nccwpck_require__(467)
 
 async function run(){
 try{
 
-  const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
+  const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
+  const payload= github.context.payload   //action,comment,issue, pull_request
+  console.log("payload " + payload);
   
+  const repository= payload.repository.full_name
+  console.log("repository " + repository);
+  console.log(`Received payload ${JSON.stringify(payload, null, 2)}`)
+  
+  const comment =payload.comment;
+  console.log("comment " + comment);  
+
+  const commits = payload.commits // for commits
+  console.log("commits " + commits);
+  console.log(`"Commit reciived "${commits.length}`);
+  
+  
+  const size =  commits.lengts
+  console.log("size " + size);
+  
+  const branch = payload.ref.split('/')[payload.ref.split('/').length -1]
+  console.log("branch " + branch);  
+
+
   const client= github.getOctokit(GITHUB_TOKEN);
   let { owner, repo } = github.context.repo;
 
-console.log("HIIIII my friend again");
 
 //   await client.issues.createComment({
 //     owner,
