@@ -8881,7 +8881,7 @@ try{
   const client= github.getOctokit(GITHUB_TOKEN);
   let { owner, repo } = github.context.repo;
 
-console.log("HIIIII");
+console.log("HIIIII my friend");
 
 //   await client.issues.createComment({
 //     owner,
