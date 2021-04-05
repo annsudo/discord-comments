@@ -1,23 +1,23 @@
 const discord= require('discord.js')
 const MAX_SIZE = 30; //TODO: check
 
-module.exports.send =(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((success,fail) => {
-    var discordChannel
+module.exports.send =(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((resolve, reject) => {
+    var client
     console.log ("Constructing message ..")
    
 //connecting to discord channel by using id and token
     try{
-        discordChannel= new discord.WebhookClient(DISCORD_ID,DISCORD_TOKEN)
+        client= new discord.WebhookClient(DISCORD_ID,DISCORD_TOKEN)
     } catch(e){
-        fail(error.message)
+        reject (error.message)
         return
     }
 
 // sending messahe
-    discordChannel.send(createMsg(user, body, issueTopic, link)).then(()=>{
+    client.send(createMsg(user, body, issueTopic, link)).then(()=>{
         console.log ("Message is send!")
-        success()
-    }, fail)
+        resolve()
+    }, reject)
 })
 
 
@@ -31,6 +31,7 @@ function createMsg(user, body, issueTopic, link){
  .setDescription(getBody(user,body))
 .setFooter("Read whole discussion on "+ shortLink(link))
 
+return message
 }
 
 
