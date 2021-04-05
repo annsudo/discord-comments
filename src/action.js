@@ -17,28 +17,25 @@ async function run(){
    on issue comment: comment
    
    **/ 
-  
-//  NEED THIS!!!
-/** for comments on issue */
 
+/** for comments on issue */ 
 const comment =payload.comment;
-  console.log(`"Comment reciived "${JSON.stringify(comment)}`);
-  const body= comment.body;
-  const user= comment.user.login;
-  const issueTopic= payload.issue.title;
-  const link= payload.issue.html_url;
+console.log(`"Comment reciived "${JSON.stringify(comment)}`);
+const body= comment.body;
+const user= comment.user.login;
+const issueTopic= payload.issue.title;
+const link= payload.issue.html_url;
 
-  console.log("Body "+body);
-  console.log("user "+user);
-  console.log("issueTopic "+issueTopic);
-  console.log("link "+link);
+console.log("Body "+body);
+console.log("user "+user);
+console.log("issueTopic "+issueTopic);
+console.log("link "+link);
 
-  const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID');
-  const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN');
+const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID');
+const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN');
 
 
 discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> core.setFailed(e.message));
-
 
 /** EXTRA: push and PR activity   
   const commits = payload.commits // for commits

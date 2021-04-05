@@ -1,4 +1,4 @@
-const discord= require('discord.js')
+const discord= require('discord.js');
 const MAX_SIZE = 30; //TODO: check
 
 module.exports.send =(DISCORD_ID, DISCORD_TOKEN, user, body, issueTopic, link)=> new Promise ((success, fail) => {
@@ -15,11 +15,20 @@ module.exports.send =(DISCORD_ID, DISCORD_TOKEN, user, body, issueTopic, link)=>
     }
 
 // sending messahe
-    botChannel.send(createMsg(user, body, issueTopic, link)).then(()=>{
+
+    botChannel.send(createMsg(user, body, issueTopic, link))
+  .then(()=>{
         console.log ("Message is send!")
         success()
     }, fail);
+
+// stoping server
+ botChannel.destroy();   
+  
 })
+
+
+
 
 
 function createMsg(user, body, issueTopic, link){
