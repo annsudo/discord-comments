@@ -1,6 +1,6 @@
 name: Discord message
 on:
-  push: # github.event_name == push
+ # push: # github.event_name == push
   pull_request: # github.event_name == pull_request
     types:
       - merged
@@ -8,8 +8,8 @@ on:
       - closed
       - reopened
       - edited
-  pull_request_review:
-    types: [edited, dismissed]
+ # pull_request_review:
+ #   types: [edited, dismissed]
 
   issue_comment: # github.event_name == issue_comment
         

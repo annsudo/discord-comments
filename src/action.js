@@ -12,33 +12,41 @@ try{
   
   /**
    on merge: commits (github.context.payload.commits)
+   on review:  
+
    on pull- comment: pull_request
    on issue comment: comment
+   
    **/ 
   
-  const repository= payload.repository.full_name // annsudo/discord-comments
-  
+
+/** for comments on issue */
   const comment =payload.comment;
   console.log(`"Comment reciived "${JSON.stringify(comment)}`);
   const body= comment.body;
   const user= comment.user.login;
   const issueTopic= payload.issue.title;
   const link= payload.issue.html_url;
-  console.log(`"Body1 "${JSON.stringify(body)}`);
-  console.log(`"Body2 "${body}`);
-  console.log("Body3 "+body);
-  
+
+  console.log("Body "+body);
+  console.log("user "+user);
+  console.log("issueTopic "+issueTopic);
+  console.log("link "+link);
+
+/** for comments on pull requests */  
   const pull_request =payload.pull_request;
   console.log(`"Pull request ?comment reciived "${JSON.stringify(pull_request)}`); 
 
+/** EXTRA: push and PR activity   
   const commits = payload.commits // for commits
   console.log(`"Commit reciived "${JSON.stringify(commits)}`);
-  
-  
-//   const size =  commits.lengts
-//   console.log("size " + size);
-//   const branch = payload.ref.split('/')[payload.ref.split('/').length -1]
-//   console.log("branch " + branch);  
+  const repository= payload.repository.full_name // annsudo/discord-comments
+  const size =  commits.lengts
+  const branch = payload.ref.split('/')[payload.ref.split('/').length -1]
+
+    EXTRA: on review --> solutions comment still wil be published to discord  
+*/   
+ 
 
 
   const client= github.getOctokit(GITHUB_TOKEN);
