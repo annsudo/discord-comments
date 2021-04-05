@@ -1,13 +1,15 @@
 const core = require ('@actions/core')
 const github= require('@actions/github')
+const discord= reqiore ('.../src/discord.js')
 const fetch= require('node-fetch')
+
 
 async function run(){
 try{
 
   const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
   const payload= github.context.payload   //action,comment,issue, pull_request
-
+    
   console.log(`Received payload ${JSON.stringify(payload, null, 2)}`)
   
   /**
@@ -33,9 +35,12 @@ try{
   console.log("issueTopic "+issueTopic);
   console.log("link "+link);
 
-/** for comments on pull requests */  
-  const pull_request =payload.pull_request;
-  console.log(`"Pull request ?comment reciived "${JSON.stringify(pull_request)}`); 
+  const DISCORD_ID = core.getInput('DISCORD_WEBHOOK_ID')
+  const DISCORD_TOKEN = core.getInput('DISCORD_WEBHOOK_TOKEN')
+
+    //analysis
+discord.send(DISCORD_ID,DISCORD_TOKEN, user, body, issueTopic, link).catch(e=> core.setFailed(e.message));
+
 
 /** EXTRA: push and PR activity   
   const commits = payload.commits // for commits
@@ -44,7 +49,11 @@ try{
   const size =  commits.lengts
   const branch = payload.ref.split('/')[payload.ref.split('/').length -1]
 
-    EXTRA: on review --> solutions comment still wil be published to discord  
+ EXTRA: on review --> solutions comment still wil be published to discord  
+   const pull_request =payload.pull_request;
+  console.log(`"Pull request ?comment reciived "${JSON.stringify(pull_request)}`); 
+
+
 */   
  
 
